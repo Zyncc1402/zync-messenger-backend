@@ -4,9 +4,6 @@
     "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
-    "@hono/node-server": "^1.13.0",
-    "@socket.io/admin-ui": "^0.5.1",
-    "hono": "^4.6.2",
     "socket.io": "^4.7.5"
   },
   "devDependencies": {
