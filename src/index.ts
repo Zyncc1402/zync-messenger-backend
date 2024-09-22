@@ -23,21 +23,21 @@ const io = new Server(server, {
   },
 });
 
-cron.schedule("*/5 * * * *", () => {
-  console.log("Pinging server at route / to keep it alive...");
-  axios
-    .get(
-      process.env.NODE_ENV == "DEVELOPMENT"
-        ? "http://localhost:3001/"
-        : "https://zync-messenger-backend.onrender.com/"
-    )
-    .then((response) => {
-      console.log(`Server responded with status code: ${response.status}`);
-    })
-    .catch((error) => {
-      console.error("Error pinging server:", error.message);
-    });
-});
+// cron.schedule("*/5 * * * *", () => {
+//   console.log("Pinging server at route / to keep it alive...");
+//   axios
+//     .get(
+//       process.env.NODE_ENV == "DEVELOPMENT"
+//         ? "http://localhost:3001/"
+//         : "https://zync-messenger-backend.onrender.com/"
+//     )
+//     .then((response) => {
+//       console.log(`Server responded with status code: ${response.status}`);
+//     })
+//     .catch((error) => {
+//       console.error("Error pinging server:", error.message);
+//     });
+// });
 
 type message = { message: string; formattedTime: string };
 
