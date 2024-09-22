@@ -1,12 +1,42 @@
+import "dotenv/config";
 import http from "http";
 import { Server } from "socket.io";
+const cron = require("node-cron");
+import axios from "axios";
 
-const server = http.createServer();
+const PORT = process.env.PORT || 3001;
+
+const server = http.createServer((req, res) => {
+  if (req.method === "GET" && req.url === "/ping") {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("Hello, this is a GET request response!");
+  } else {
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("404 Not Found");
+  }
+});
+
 const io = new Server(server, {
   cors: {
     origin: "*",
     allowedHeaders: "*",
   },
+});
+
+cron.schedule("*/5 * * * *", () => {
+  console.log("Pinging server to keep it alive...");
+  axios
+    .get(
+      process.env.NODE_ENV == "DEVELOPMENT"
+        ? "http://localhost:3001/ping"
+        : "https://zync-messenger-backend.onrender.com/ping"
+    )
+    .then((response) => {
+      console.log(`Server responded with status code: ${response.status}`);
+    })
+    .catch((error) => {
+      console.error("Error pinging server:", error.message);
+    });
 });
 
 type message = { message: string; formattedTime: string };
@@ -31,6 +61,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3001, () => {
-  console.log(`Server is running on port 3001`);
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

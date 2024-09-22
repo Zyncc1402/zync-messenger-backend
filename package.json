@@ -4,7 +4,12 @@
     "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
-    "socket.io": "^4.7.5"
+    "@hono/node-server": "^1.13.1",
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "hono": "^4.6.2",
+    "node-cron": "^3.0.3",
+    "socket.io": "^4.8.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
