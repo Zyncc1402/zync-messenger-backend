@@ -7,7 +7,7 @@ import axios from "axios";
 const PORT = process.env.PORT || 3001;
 
 const server = http.createServer((req, res) => {
-  if (req.method === "GET" && req.url === "/ping") {
+  if (req.method === "GET" && req.url === "/") {
     res.writeHead(200, { "Content-Type": "text/plain" });
     res.end("Hello, this is a GET request response!");
   } else {
@@ -24,12 +24,12 @@ const io = new Server(server, {
 });
 
 cron.schedule("*/5 * * * *", () => {
-  console.log("Pinging server to keep it alive...");
+  console.log("Pinging server at route / to keep it alive...");
   axios
     .get(
       process.env.NODE_ENV == "DEVELOPMENT"
-        ? "http://localhost:3001/ping"
-        : "https://zync-messenger-backend.onrender.com/ping"
+        ? "http://localhost:3001/"
+        : "https://zync-messenger-backend.onrender.com/"
     )
     .then((response) => {
       console.log(`Server responded with status code: ${response.status}`);
